@@ -13,7 +13,7 @@ from mmseg.core import eval_metrics, intersect_and_union, pre_eval_to_metrics
 from mmseg.utils import get_root_logger
 from .builder import DATASETS
 from .pipelines import Compose, LoadAnnotations
-
+import pdb
 
 @DATASETS.register_module()
 class CustomDataset(Dataset):
@@ -208,11 +208,13 @@ class CustomDataset(Dataset):
             dict: Training/test data (with annotation if `test_mode` is set
                 False).
         """
-
+        
         if self.test_mode:
             return self.prepare_test_img(idx)
         else:
-            return self.prepare_train_img(idx)
+            img = self.prepare_train_img(idx)
+            #print(img)
+            return img
 
     def prepare_train_img(self, idx):
         """Get training data and annotations after pipeline.
@@ -224,7 +226,6 @@ class CustomDataset(Dataset):
             dict: Training data and annotation after pipeline with new keys
                 introduced by pipeline.
         """
-
         img_info = self.img_infos[idx]
         ann_info = self.get_ann_info(idx)
         results = dict(img_info=img_info, ann_info=ann_info)
