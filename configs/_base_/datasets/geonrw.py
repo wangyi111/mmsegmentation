@@ -6,7 +6,7 @@ img_norm_cfg = dict(
 crop_size = (1024, 1024)
 train_pipeline = [
     dict(type='LoadImageFromFile'),
-    dict(type='LoadAnnotations', reduce_zero_label=False),
+    dict(type='LoadAnnotations',reduce_zero_label=True),
     dict(type='Resize', img_scale=(1024, 1024), ratio_range=(0.5, 2.0)),
     dict(type='RandomCrop', crop_size=crop_size, cat_max_ratio=0.75),
     dict(type='RandomFlip', prob=0.5),
@@ -33,22 +33,24 @@ test_pipeline = [
 ]
 data = dict(
     samples_per_gpu=2,
-    workers_per_gpu=1,
+    workers_per_gpu=8,
     train=dict(
         type=dataset_type,
         data_root=data_root,
         img_dir='img_dir/train',
         ann_dir='ann_dir/train',
+        split='train.txt',
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
         data_root=data_root,
-        img_dir='img_dir/val',
-        ann_dir='ann_dir/val',
+        img_dir='img_dir/train',
+        ann_dir='ann_dir/train',
+        split='val.txt',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
         data_root=data_root,
-        img_dir='img_dir/val',
-        ann_dir='ann_dir/val',
+        img_dir='img_dir/test',
+        ann_dir='ann_dir/test',
         pipeline=test_pipeline))

@@ -7,6 +7,9 @@ from .custom import CustomDataset
 class GeoNRWDataset(CustomDataset):
     """GeoNRW dataset.
 
+    In segmentation map annotation for ADE20K, 0 stands for background, which
+    is not included in 150 categories. ``reduce_zero_label`` is fixed to True.    
+
     """
     CLASSES = (
         "forest",

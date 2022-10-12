@@ -7,4 +7,4 @@ model = dict(
     auxiliary_head=dict(num_classes=10),
     pretrained='pretrained_weights/resnet50_v1c-2cccc1ad.pth',)
 
-evaluation = dict(interval=400, metric='mIoU', pre_eval=True)
+#evaluation = dict(interval=400, metric='mIoU', pre_eval=True)
